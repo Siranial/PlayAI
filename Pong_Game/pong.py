@@ -56,9 +56,7 @@ while carryOn:
 		carryOn = False
 	#screenshot command
 	if keys[pygame.K_e]:
-		rect = pygame.Rect(0, 0, 700, 500)
-		sub = screen.subsurface(rect)
-		pygame.image.save(sub,"screenshot.jpg")
+		pygame.image.save(screen,"screenshot.jpg")
 	#paddle movement
 	if keys[pygame.K_w]:
 		paddleA.moveUp(5)
