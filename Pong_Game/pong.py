@@ -41,7 +41,7 @@ scoreA = 0
 scoreB = 0
 
 #keylogger
-keylog = Keylogger("keys.txt")
+#keylog = Keylogger("keys.txt")
 
 #main
 while carryOn:
@@ -55,21 +55,21 @@ while carryOn:
 	if keys[pygame.K_q]:
 		carryOn = False
 	#screenshot command
-	if keys[pygame.K_e]:
-		pygame.image.save(screen,"screenshot.jpg")
+	#if keys[pygame.K_e]:
+	#	pygame.image.save(screen,"screenshot.jpg")
 	#paddle movement
 	if keys[pygame.K_w]:
 		paddleA.moveUp(5)
-		keylog.update("keylog.txt","w")
+	#	keylog.update("keylog.txt","w")
 	if keys[pygame.K_s]:
 		paddleA.moveDown(5)
-		keylog.update("keylog.txt","s")
+	#	keylog.update("keylog.txt","s")
 	if keys[pygame.K_UP]:
 		paddleB.moveUp(5)
-		keylog.update("keylog.txt","up")
+	#	keylog.update("keylog.txt","up")
 	if keys[pygame.K_DOWN]:
 		paddleB.moveDown(5)
-		keylog.update("keylog.txt","down")
+	#	keylog.update("keylog.txt","down")
 
 	all_sprites_list.update()
 
