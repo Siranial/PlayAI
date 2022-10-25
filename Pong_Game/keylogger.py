@@ -7,10 +7,10 @@ class Keylogger():
         self.filename = filename
 
     #update
-    def update(self,file,key_name):
+    def update(self,file,key_name,frame):
         #Write to file
         with open(self.filename, "a") as file:
-            file.write(key_name + " At Time : " + datetime.now().strftime("%H:%M:%S.%f")[:-3] + "\n")
+            file.write(key_name + ", " + str(frame) + "\n")
             #file.write(key_name + "\n")
             file.close()
 		

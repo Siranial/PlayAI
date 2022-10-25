@@ -4,9 +4,10 @@ from ball import Ball
 from keylogger import Keylogger
 import time
 pygame.init()
-#frame shit
-frame_time=.016
+
+#frame and recording variables
 frame_count=0
+rec=False
 
 #colors
 BLACK = (0,0,0)
@@ -58,39 +59,29 @@ while carryOn:
 		carryOn = False
 	#screenshot command
 	if keys[pygame.K_e]:
+		print(clock)
 		pygame.image.save(screen,"screenshot.jpg")
-		keylog.update("keylog.txt","screenshot")
+		keylog.update("keylog.txt","e",frame_count)
 	if keys[pygame.K_r]:
-		next_frame=time.time()+frame_time
-		while True:
-			while time.time()<next_frame:
-				time.sleep(.001)
-				if keys[pygame.K_w]:
-					keylog.update("keylog2.txt","w")
-				if keys[pygame.K_s]:
-					keylog.update("keylog2.txt","s")
-				if keys[pygame.K_UP]:
-					keylog.update("keylog2.txt","up")
-				if keys[pygame.K_DOWN]:
-					keylog.update("keylog2.txt","down")
-			frame_count+=1
-			keylog.update("keylog.txt2",frame_count)
-			next_frame+=frame_time
-
+		if rec == False:
+			rec = True
+		else:
+			rec = True
+		keylog.update("keylog.txt","r",frame_count)
 
 	#paddle movement
 	if keys[pygame.K_w]:
 		paddleA.moveUp(5)
-		keylog.update("keylog.txt","w")
+		keylog.update("keylog.txt","w",frame_count)
 	if keys[pygame.K_s]:
 		paddleA.moveDown(5)
-		keylog.update("keylog.txt","s")
+		keylog.update("keylog.txt","s",frame_count)
 	if keys[pygame.K_UP]:
 		paddleB.moveUp(5)
-		keylog.update("keylog.txt","up")
+		keylog.update("keylog.txt","up",frame_count)
 	if keys[pygame.K_DOWN]:
 		paddleB.moveDown(5)
-		keylog.update("keylog.txt","down")
+		keylog.update("keylog.txt","down",frame_count)
 
 	all_sprites_list.update()
 
@@ -122,6 +113,7 @@ while carryOn:
 	screen.blit(text, (420, 10))
 
 	#screen update
+	frame_count+=1
 	pygame.display.flip()
 	clock.tick(60)
 
