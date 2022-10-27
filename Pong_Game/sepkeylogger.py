@@ -1,3 +1,6 @@
+import numpy as np
+import pyautogui as pg
+import pygetwindow as gw
 import pynput
 from pynput.keyboard import Key, Listener
 
