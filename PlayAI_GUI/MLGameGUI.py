@@ -1,6 +1,7 @@
 import os, subprocess
 import PySimpleGUI as sg
-import wexpect as wx
+import pexpect as px
+
 
 # The layout of the GUI
 layout = [
@@ -16,10 +17,9 @@ while True:
     event, values = window.read()
     #Launch Pong.py if user presses Pong button
     if event == "Pong":
-        #os.system("python C:/Users/jonat/Documents/GitHub/PlayAI/Pong_Game/Pong.py")
-        cmd = wx.spawn("cmd")
-        cmd.expect('>')
-        cmd.sendline("python ../Pong_Game/Pong.py")
+        os.system("python Pong_Game/Pong.py")
+    
+        #Pong_Window = wx.spawn("../Pong_Game/Pong.py")
     # End program if user closes window or
     # presses the Exit button
     if event == "Exit" or event == sg.WIN_CLOSED:
