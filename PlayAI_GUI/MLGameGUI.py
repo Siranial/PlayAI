@@ -1,5 +1,4 @@
-import os
-import subprocess
+import os, subprocess
 import PySimpleGUI as sg
 import pexpect as px
 
