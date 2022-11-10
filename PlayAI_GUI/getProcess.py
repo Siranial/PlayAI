@@ -11,5 +11,7 @@ p_name = input()
 #Find process with game name
 for p in ps.process_iter():
     if p_name in p.name():
-        print(p.name())
         break
+
+print(p.name())
+print(p.ppid())
