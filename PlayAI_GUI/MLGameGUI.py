@@ -8,10 +8,10 @@ layout = [
         [sg.Text("Select a game to run")], 
         [sg.Button("Pong"), sg.Button("SpaceInvaders")],
         [sg.Button("Exit")]]
-
+sg.theme("Dark Grey 15")
 # Create the window
 window = sg.Window("PlayAI", layout, margins=(200, 200))
-
+sg.theme_previewer()
 # Create an event loop
 while True:
     event, values = window.read()

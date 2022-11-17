@@ -12,7 +12,7 @@ fourcc = cv2.VideoWriter_fourcc(*"XVID")
 # frames per second
 fps = 12.0
 # the time you want to record in seconds
-record_seconds = 10
+record_seconds = 10000000
 # search for the window, getting the first matched window with the title
 w = gw.getWindowsWithTitle(window_name)[0]
 # activate the window
