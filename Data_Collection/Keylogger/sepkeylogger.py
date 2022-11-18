@@ -3,27 +3,33 @@ import numpy as np
 import pynput
 from pynput.keyboard import Key, Listener
 
-#Poll user where to store keylogs
-print('Please input file location for storing keylogs')
-print('Example: C:/Users/USERNAME/Desktop')
-filepath = input()
-#Ensure filepath exists
-while not os.path.exists(filepath):
-        print('Folder not found, please enter existing folder location')
-        filepath = input()
-
-#Check what to call keylog file and set file name
-i = 0
-while os.path.exists(filepath + '/keylog' + str(i) + '.txt'):
-    i+=1
-file_name = '/keylog' + str(i) + '.txt'
-
+filepath = ''
+file_name = '/keylog0.txt'
 keys = []
 
+#Initialize keylog file path
+def init_keylogger():
+    #Poll user where to store keylogs
+    print('Please input file location for storing keylogs')
+    print('Example: C:/Users/USERNAME/Desktop')
+    filepath = input()
+    #Ensure filepath exists
+    while not os.path.exists(filepath):
+            print('Folder not found, please enter existing folder location')
+            filepath = input()
+
+    #Check what to call keylog file and set file name
+    i = 0
+    while os.path.exists(filepath + file_name):
+        i+=1
+        file_name = '/keylog' + str(i) + '.txt'
+
+#Detect when a key is pressed
 def on_press(key):
     keys.append(key)
     write_file(keys)
-          
+
+#Write keys and framestamps to file
 def write_file(keys):
     with open(filepath + file_name, 'w') as f:
         for key in keys:
@@ -31,7 +37,8 @@ def write_file(keys):
             f.write(str(key).replace("'", ""))
             # add new line
             f.write('\n')
-              
+
+#Detect when a key is released
 def on_release(key):
     # Stop keylogger when esc is pressed
     if key == Key.esc:
