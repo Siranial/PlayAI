@@ -3,13 +3,10 @@ import numpy as np
 import os
 
 
-# Change the working directory to the folder this script is in.
-# Doing this because I'll be putting the files from each video in their own folder on GitHub
+# Change CWD to folder where script is located
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-# Can use IMREAD flags to do different pre-processing of image files,
-# like making them grayscale or reducing the size.
-# https://docs.opencv.org/4.2.0/d4/da8/group__imgcodecs.html
+# read canvas and target images
 canvas = cv.imread('pong_img1.png', cv.IMREAD_UNCHANGED)
 target = cv.imread('pong_ball.png', cv.IMREAD_UNCHANGED)
 
