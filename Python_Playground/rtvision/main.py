@@ -20,9 +20,10 @@ wincap = WindowCapture(window_name)
 '''
 # https://www.crazygames.com/game/guns-and-bottle
 wincap = WindowCapture()
-vision_gunsnbottle = Vision('gunsnbottle.jpg')
+vision_pong = Vision('pong_ball.png')
 '''
-
+target = Vision('pong_ball.png')
+target.find(screenshot, 0.6, 'rectangles')
 #Define video codec
 fourcc = cv.VideoWriter_fourcc(*"XVID")
 # define frames per second
