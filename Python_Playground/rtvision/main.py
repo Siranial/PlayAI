@@ -42,7 +42,7 @@ while(True):
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
     # write the frame
     
-    target.find(screenshot, 0.6, 'rectangles')
+    points=target.find(screenshot, 0.6, 'rectangles')
     out.write(frame)
 
     # display the processed image
