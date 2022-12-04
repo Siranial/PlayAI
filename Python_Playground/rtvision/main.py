@@ -22,7 +22,7 @@ wincap = WindowCapture(window_name)
 #wincap = WindowCapture()
 #vision_pong = Vision('pong_ball.png')
 '''
-target = Vision('pong_ball.png')
+target = Vision('pong_ball.jpg')
 #Define video codec
 fourcc = cv.VideoWriter_fourcc(*"XVID")
 # define frames per second
