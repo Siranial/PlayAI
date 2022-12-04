@@ -22,7 +22,7 @@ wincap = WindowCapture(window_name)
 #wincap = WindowCapture()
 #vision_pong = Vision('pong_ball.png')
 '''
-
+target = Vision('pong_ball.png')
 #Define video codec
 fourcc = cv.VideoWriter_fourcc(*"XVID")
 # define frames per second
@@ -41,7 +41,7 @@ while(True):
     # convert colors from BGR to RGB
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
     # write the frame
-    target = Vision('pong_ball.png')
+    
     target.find(screenshot, 0.6, 'rectangles')
     out.write(frame)
 
