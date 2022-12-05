@@ -24,12 +24,14 @@ class Vision:
         # TM_CCOEFF, TM_CCOEFF_NORMED, TM_CCORR, TM_CCORR_NORMED, TM_SQDIFF, TM_SQDIFF_NORMED
         self.method = method
 
-    def find(self, haystack_img, threshold=0.5, debug_mode=None):
+    def find(self, haystack_img, threshold, debug_mode=None):
         # run the OpenCV algorithm
         result = cv.matchTemplate(haystack_img, self.needle_img, self.method)
 
         # Get the all the positions from the match result that exceed our threshold
         locations = np.where(result >= threshold)
+
+        #Started here
         locations = list(zip(*locations[::-1]))
         #print(locations)
 

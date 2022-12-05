@@ -42,12 +42,9 @@ while(True):
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
     # write the frame
     
-    points=target.find(screenshot, 0.6, 'rectangles')
+    # find the coordinates where the target lies
+    points = target.find(screenshot, 0.49, 'rectangles')
     out.write(frame)
-
-    # display the processed image
-    #points = target.find(screenshot, 0.5, 'rectangles')
-    #points = vision_gunsnbottle.find(screenshot, 0.7, 'points')
 
     # debug the loop rate
     #print('FPS {}'.format(1 / (time() - loop_time)))
