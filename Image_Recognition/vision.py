@@ -44,18 +44,11 @@ class Vision:
             # Add every box to the list twice in order to retain single (non-overlapping) boxes
             rectangles.append(rect)
             rectangles.append(rect)
-        # Apply group rectangles.
-        # The groupThreshold parameter should usually be 1. If you put it at 0 then no grouping is
-        # done. If you put it at 2 then an object needs at least 3 overlapping rectangles to appear
-        # in the result. I've set eps to 0.5, which is:
-        # "Relative difference between sides of the rectangles to merge them into a group."
-        rectangles, weights = cv.groupRectangles(rectangles, groupThreshold=1, eps=0.5)
-        #print(rectangles)
+        # Group rectangles to reduce overlapping
+        rectangles, weights = cv.groupRectangles(rectangles, groupThreshold=200, eps=0.5)
 
         points = []
         if len(rectangles):
-            #print('Found needle.')
-
             line_color = (0, 255, 0)
             line_type = cv.LINE_4
             marker_color = (255, 0, 255)
@@ -83,9 +76,9 @@ class Vision:
                                 color=marker_color, markerType=marker_type, 
                                 markerSize=40, thickness=2)
 
-        if debug_mode:
-            cv.imshow('Matches', haystack_img)
+        #if debug_mode:
+            #cv.imshow('Matches', haystack_img)
             #cv.waitKey()
             #cv.imwrite('result_click_point.jpg', haystack_img)
 
-        return points
+        return points, haystack_img

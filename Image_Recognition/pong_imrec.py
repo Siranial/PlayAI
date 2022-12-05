@@ -13,8 +13,8 @@ window_name = input()
 wincap = WindowCapture(window_name)
 
 # initialize the Vision classes
-targetBall = Vision('pong_ball.jpg',cv.TM_CCOEFF_NORMED)
-#targetBar = Vision('pong_bar.jpg')
+targetBall = Vision('pong_ball.jpg')
+targetBar = Vision('pong_bar.jpg')
 
 
 while(True):
@@ -26,15 +26,15 @@ while(True):
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
     # find the coordinates where the targets lie
-    pointsBall = targetBall.find(screenshot, 0.4, 'points')
-    #pointsBar = targetBar.find(screenshot, 0.49, 'rectangles')
+    pointsBall, frameRect = targetBall.find(frame, 0.4, 'points')
+    pointsBar, frameRect = targetBar.find(frameRect, 0.4, 'rectangles')
 
     #COMBINE POINTSBALL AND BAR HERE TO MAKE THE IMAGE AND PRINT IT
     #need to edit vision.py to return the points only
 
 
     #Show the points where ball is recognized
-    #cv.imshow('Ball matches', pointsBall)
+    cv.imshow('Ball matches', frameRect)
 
     # polls for q press to quit capture
     if cv.waitKey(1) == ord('q'):
