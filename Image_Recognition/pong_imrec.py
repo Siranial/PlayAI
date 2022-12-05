@@ -26,8 +26,8 @@ while(True):
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
     # find the coordinates where the targets lie
-    pointsBall, frameRect = targetBall.find(frame, 0.4, 'points')
-    pointsBar, frameRect = targetBar.find(frameRect, 0.4, 'rectangles')
+    pointsBall, frameRect = targetBall.find(frame, 0.4, 200, 'points')
+    pointsBar, frameRect = targetBar.find(frameRect, 0.4, 1, 'rectangles')
 
     #COMBINE POINTSBALL AND BAR HERE TO MAKE THE IMAGE AND PRINT IT
     #need to edit vision.py to return the points only

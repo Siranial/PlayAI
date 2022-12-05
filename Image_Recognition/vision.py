@@ -24,7 +24,7 @@ class Vision:
         # TM_CCOEFF, TM_CCOEFF_NORMED, TM_CCORR, TM_CCORR_NORMED, TM_SQDIFF, TM_SQDIFF_NORMED
         self.method = method
 
-    def find(self, haystack_img, threshold, debug_mode=None):
+    def find(self, haystack_img, threshold, recThresh=1, debug_mode=None):
         # run the OpenCV algorithm
         result = cv.matchTemplate(haystack_img, self.needle_img, self.method)
 
@@ -45,7 +45,7 @@ class Vision:
             rectangles.append(rect)
             rectangles.append(rect)
         # Group rectangles to reduce overlapping
-        rectangles, weights = cv.groupRectangles(rectangles, groupThreshold=200, eps=0.5)
+        rectangles, weights = cv.groupRectangles(rectangles, groupThreshold=recThresh, eps=0.5)
 
         points = []
         if len(rectangles):
