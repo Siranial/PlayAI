@@ -9,9 +9,10 @@ class Vision:
     needle_w = 0
     needle_h = 0
     method = None
+    color = (0,0,0)
 
     # constructor
-    def __init__(self, needle_img_path, method=cv.TM_CCOEFF_NORMED):
+    def __init__(self, needle_img_path, method=cv.TM_CCOEFF_NORMED, color=(255,0,255)):
         # load the image we're trying to match
         # https://docs.opencv.org/4.2.0/d4/da8/group__imgcodecs.html
         self.needle_img = cv.imread(needle_img_path, cv.IMREAD_UNCHANGED)
@@ -23,6 +24,9 @@ class Vision:
         # There are 6 methods to choose from:
         # TM_CCOEFF, TM_CCOEFF_NORMED, TM_CCORR, TM_CCORR_NORMED, TM_SQDIFF, TM_SQDIFF_NORMED
         self.method = method
+
+        #change color
+        self.color = color
 
     def find(self, haystack_img, threshold, recThresh=1, debug_mode=None):
         # run the OpenCV algorithm
@@ -51,7 +55,6 @@ class Vision:
         if len(rectangles):
             line_color = (0, 255, 0)
             line_type = cv.LINE_4
-            marker_color = (255, 0, 255)
             marker_type = cv.MARKER_CROSS
 
             # Loop over all the rectangles
@@ -73,7 +76,7 @@ class Vision:
                 elif debug_mode == 'points':
                     # Draw the center point
                     cv.drawMarker(haystack_img, (center_x, center_y), 
-                                color=marker_color, markerType=marker_type, 
+                                color=self.color, markerType=marker_type, 
                                 markerSize=40, thickness=2)
 
         return points, haystack_img
