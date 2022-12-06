@@ -79,7 +79,7 @@ while carryOn:
 
 	#drawing
 	screen.fill(BLACK)
-	pygame.draw.line(screen, WHITE, [349, 0], [349, 500], 5)
+	#pygame.draw.line(screen, WHITE, [349, 0], [349, 500], 5)
 	all_sprites_list.draw(screen)
 
 	#score display
