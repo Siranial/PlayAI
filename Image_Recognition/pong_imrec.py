@@ -62,11 +62,17 @@ while(True):
                 else:
                     predPointBall = -predPointBall
         
-        #Calculate where the bar needs to move to meet the predicted point
-        if pointRightBar[1] - predPointBall > 35:
-            moveBar = win32con.VK_UP
-        elif pointRightBar[1] - predPointBall < -35:
-            moveBar = win32con.VK_DOWN
+            #Calculate where the bar needs to move to meet the predicted point
+            if pointRightBar[1] - predPointBall > 25:
+                moveBar = win32con.VK_UP
+            elif pointRightBar[1] - predPointBall < -25:
+                moveBar = win32con.VK_DOWN
+        #Case where ball is moving to the left
+        else:
+            if pointRightBar[1] - 250 > 0:
+                moveBar = win32con.VK_UP
+            elif pointRightBar[1] - 250 < 0:
+                moveBar = win32con.VK_DOWN
 
 
     #Move bar
