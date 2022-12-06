@@ -1,7 +1,6 @@
 import cv2 as cv
 import numpy as np
 import os
-import time
 import win32con, win32api
 from windowcapture import WindowCapture
 from vision import Vision
@@ -15,13 +14,14 @@ window_name = input()
 wincap = WindowCapture(window_name)
 
 # initialize the Vision classes
-targetBall = Vision('pong_ball.jpg')
-targetBar = Vision('pong_bar.jpg')
+targetBall = Vision('pong_ball2.jpg')
+targetBar = Vision('pong_bar2.jpg')
 
 # initialize global variables
 prevPointBall = (0,0)
 predPointBall = 0
 ballVelocity = 0
+moveBar = win32con.VK_LEFT
 
 
 while(True):
@@ -33,8 +33,8 @@ while(True):
     #frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
     # find the coordinates where the targets lie
-    pointsBall, frameRect = targetBall.find(screenshot, 0.4, 150, 'points')
-    pointsBar, frameRect = targetBar.find(frameRect, 0.39, 1, 'points')
+    pointsBall, frameRect = targetBall.find(screenshot, 0.9, 1, 'points')
+    pointsBar, frameRect = targetBar.find(frameRect, 0.9, 1, 'points')
     
     #Get the rightmost recognized bar
     if len(pointsBar) > 0:
@@ -48,15 +48,18 @@ while(True):
         #Calculate ball path
         ballVelocity = tuple(map(lambda i,j:i-j, pointsBall[0], prevPointBall))
         prevPointBall = pointsBall[0]
-        #print(ballVelocity)
 
 
-        #Predict where to move the paddle based on ball velocity
-        #Calculate time before paddle hit
+        #Predict where to move the bar based on ball velocity
+        #Calculate time before ball hits bar
         if ballVelocity[0] > 0:
+            #Normalize the ball velocity
+            velocity = np.sqrt(ballVelocity[0] * ballVelocity[0] + ballVelocity[1] * ballVelocity[1])
+            ballVelocity = (ballVelocity[0] / velocity, ballVelocity[1] / velocity)
+
             airTime = (pointRightBar[0] - pointsBall[0][0]) / ballVelocity[0]
             #Predict vertical location of ball for paddle hit
-            predPointBall = (ballVelocity[1] * airTime)
+            predPointBall = (pointsBall[0][1] + ballVelocity[1] * airTime)
             while predPointBall > 700 or predPointBall < 0:
                 if predPointBall > 700:
                     predPointBall = 1400 - predPointBall
@@ -64,33 +67,34 @@ while(True):
                     predPointBall = -predPointBall
         
         #Calculate where the bar needs to move to meet the predicted point
-        if pointRightBar[1] > predPointBall:
+        if pointRightBar[1] - predPointBall > 20:
             moveBar = win32con.VK_UP
-        else:
+        elif pointRightBar[1] - predPointBall < -20:
             moveBar = win32con.VK_DOWN
+        else:
+            #bar stays still
+            moveBar = win32con.VK_LEFT
 
-        #Calculate difference between ball and right paddle 
-        #coordinates and send bar towards ball y coordinate
-        #if pointRightBar[1] > pointsBall[0][1]:
-        #    moveBar = win32con.VK_UP
-        #else:
-        #    moveBar = win32con.VK_DOWN
-        
-        #Move bar
-        win32api.PostMessage(wincap.hwnd, win32con.WM_KEYDOWN, moveBar, 0)
-        time.sleep(0.3)
-        
-        #Relase key
-        win32api.PostMessage(wincap.hwnd, win32con.WM_KEYUP, moveBar, 0)
+
+        print(ballVelocity, predPointBall, airTime)
+
+
+    #Move bar
+    win32api.PostMessage(wincap.hwnd, win32con.WM_KEYDOWN, moveBar, 0)
 
 
     #Show the points where ball is recognized
     cv.imshow('Ball matches', frameRect)
 
     # polls for q press to quit capture
-    if cv.waitKey(1) == ord('q'):
+    if cv.waitKey(100) == ord('q'):
         cv.destroyAllWindows()
         break
+    
+    #Relase key
+    win32api.PostMessage(wincap.hwnd, win32con.WM_KEYUP, moveBar, 0)
+    #Reset movement for next loop
+    moveBar = win32con.VK_LEFT
 
     
 
