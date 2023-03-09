@@ -11,7 +11,7 @@ WHITE = (255,255,255)
 
 #window & misc
 size = (700, 500)
-screen = pygame.display.set_mode(size)
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 pygame.display.set_caption("Pygame Pong")
 carryOn = True
 clock = pygame.time.Clock()
