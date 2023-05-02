@@ -24,15 +24,17 @@ class KeyListener():
         self.keys_pressed = [0] * len(self.key_list)
             
 
-    #def on_press(self,key):
-    #    for element in self.keys_pressed:
-    #        if self.key_list[element] == key:
-    #            self.keys_pressed[element] = 1
+    def on_press(self,key):
+        if key == keyboard.Key.esc:
+            return False
+        for element in self.keys_pressed:
+            if self.key_list[element] == key:
+                self.keys_pressed[element] = 1
 		
-    #def on_release(self,key):
-    #    for element in self.keys_pressed:
-    #        if self.key_list[element] == key:
-    #            self.keys_pressed[element] = 0
+    def on_release(self,key):
+        for element in self.keys_pressed:
+            if self.key_list[element] == key:
+                self.keys_pressed[element] = 0
         
     def write_keys(self,frame_number):
         # Generate a new string to write to the CSV
