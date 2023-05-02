@@ -86,29 +86,48 @@ def butterworth_highpass(img, n, D):
 
 
 #Read custom image
-img1 = cv2.cvtColor(cv2.imread('img1.jpg',cv2.IMREAD_UNCHANGED), cv2.COLOR_RGBA2GRAY)
-img2 = cv2.cvtColor(cv2.imread('img2.jpg',cv2.IMREAD_UNCHANGED), cv2.COLOR_RGBA2GRAY)
-img3 = cv2.cvtColor(cv2.imread('img3.jpg',cv2.IMREAD_UNCHANGED), cv2.COLOR_RGBA2GRAY)
-img4 = cv2.cvtColor(cv2.imread('img4.jpg',cv2.IMREAD_UNCHANGED), cv2.COLOR_RGBA2GRAY)
-img5 = cv2.cvtColor(cv2.imread('img5.jpg',cv2.IMREAD_UNCHANGED), cv2.COLOR_RGBA2GRAY)
+img1 = cv2.cvtColor(cv2.imread('img1.jpg',cv2.IMREAD_UNCHANGED), cv2.COLOR_RGB2GRAY)
+img2 = cv2.cvtColor(cv2.imread('img2.jpg',cv2.IMREAD_UNCHANGED), cv2.COLOR_RGB2GRAY)
+img3 = cv2.cvtColor(cv2.imread('img3.jpg',cv2.IMREAD_UNCHANGED), cv2.COLOR_RGB2GRAY)
+img4 = cv2.cvtColor(cv2.imread('img4.jpg',cv2.IMREAD_UNCHANGED), cv2.COLOR_RGB2GRAY)
+img5 = cv2.cvtColor(cv2.imread('img5.jpg',cv2.IMREAD_UNCHANGED), cv2.COLOR_RGB2GRAY)
 
-img1_low = butterworth_highpass(img1,2,30)
-img2_low = butterworth_highpass(img2,2,30)
-img3_low = butterworth_lowpass(img3,2,30)
-img4_low = butterworth_lowpass(img4,2,30)
-img5_low = butterworth_lowpass(img5,2,30)
+img1_sharp = np.copy(img1)
+img1_sharp[img1_sharp < 78] = 0
+img1_blobs = butterworth_lowpass(img1_sharp,2,20)
+img1_blobs[img1_blobs > 10] = 255
 
-plt.subplot(121),plt.imshow(img1, cmap = 'gray')
+plt.subplot(131),plt.imshow(img1, cmap = 'gray')
 plt.title('img1 original'), plt.xticks([]), plt.yticks([])
-plt.subplot(122),plt.imshow(img1_low, cmap = 'gray')
-plt.title('img1 low'), plt.xticks([]), plt.yticks([])
+plt.subplot(132),plt.imshow(img1_sharp, cmap = 'gray')
+plt.title('img1 sharp'), plt.xticks([]), plt.yticks([])
+plt.subplot(133),plt.imshow(img1_blobs, cmap = 'gray')
+plt.title('img1 blobs'), plt.xticks([]), plt.yticks([])
 plt.show()
 
+exit()
+
+img2_low = butterworth_lowpass(img2,2,30)
 plt.subplot(121),plt.imshow(img2, cmap = 'gray')
 plt.title('img2 original'), plt.xticks([]), plt.yticks([])
 plt.subplot(122),plt.imshow(img2_low, cmap = 'gray')
 plt.title('img2 low'), plt.xticks([]), plt.yticks([])
 plt.show()
+
+
+img3_low = butterworth_lowpass(img3,2,30)
+
+
+
+img4_low = butterworth_lowpass(img4,2,30)
+
+
+
+img5_low = butterworth_lowpass(img5,2,30)
+
+
+
+
 
 
 
