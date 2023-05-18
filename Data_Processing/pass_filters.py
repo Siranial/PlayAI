@@ -66,6 +66,7 @@ while os.path.exists(new_processed_path):
     i+=1
 os.mkdir(new_processed_path)
 
+#Operate on every .jpg in the directory
 for filename in os.listdir(args.folderpath):
     if not filename.endswith(".jpg"):
         continue
@@ -76,9 +77,9 @@ for filename in os.listdir(args.folderpath):
 
     #Process the image
     img[img < 78] = 0
-    img = butterworth_lowpass(img,2,50)
-    img[img < 10] = 0
-    img[img >= 10] = 255
+    #img = butterworth_lowpass(img,2,50)
+    img = butterworth_lowpass(img,2,30)
+    img[img > 4] = 255
 
 
     #Save the image
