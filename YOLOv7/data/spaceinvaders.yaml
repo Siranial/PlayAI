@@ -2,5 +2,5 @@ train: ./data/train_space_invaders
 val: ./data/valid_space_invaders
 test: ./data/test_space_invaders
 
-nc: 9
-names: ['-', 'Barrier', 'CB', 'CBB', 'CBM', 'CBT', 'Enemies', 'LB', 'Player']
+nc: 4
+names: ['Barriers', 'Bullets', 'Enemies', 'Player']
